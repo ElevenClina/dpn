@@ -60,11 +60,25 @@ class Utils():
         return np.transpose(image, (2, 0, 1))
 
     @staticmethod
-    def save_model(model, episode, epsilon, reward):
+    def save_model(model, param_save_path, episode, epsilon, reward):
         # 保存一下我们的模型
-        torch.save(model.state_dict(), f"./output/predicted_{episode}_{epsilon}_{reward}.pth")
+        torch.save(model.state_dict(), f"{param_save_path}predicted_{episode}_{epsilon}_{reward}.pth")
 
     @staticmethod
     def load_model(model, path):
         model.load_state_dict(torch.load(path))
         return model
+
+    @staticmethod
+    def data_saving_format(data):
+        str = ""
+        for item in data:
+            str += f"{item}\n"
+        return str
+
+    @staticmethod
+    def save_data(data, path):
+        # 将data保存到path路径下的txt文件中
+        with open(path, 'w') as f:
+            f.write(str(data))
+
