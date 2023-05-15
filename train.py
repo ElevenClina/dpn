@@ -11,6 +11,9 @@ from model.replay_buffer import PrioritizedBuffer
 import matplotlib.pyplot as plt
 
 
+device = "cpu"
+data_save_path = "output/train/"
+param_save_path = "param/"
 # 缓冲区大小
 buffer_capacity = 960
 # 学习率
@@ -86,6 +89,7 @@ def train(game, net, target_model, optimizer, replay_buffer, device):
         state = Utils.resize_image(init_state)
 
         episode_reward = 0
+        index = 0
         while True:
             epsilon = update_epsilon(info.index)
             if len(replay_buffer) > batch_size:
@@ -93,10 +97,14 @@ def train(game, net, target_model, optimizer, replay_buffer, device):
             else:
                 beta = 0.4
 
-            action = net.act(state, epsilon, 'cpu')
+            action = net.act(state, epsilon, device)
             next_state, reward, done, _ = game.step(action)
             next_state = Utils.resize_image(next_state)
             reward = reward[0]
+
+            """ 保存交互数据，根据需求自行定义"""
+            # runtime_data = ("state", action, reward, "next_state", done)
+            # Utils.save_data(runtime_data, f"{data_save_path}train_data_{episode}_{index}.txt")
 
             episode_reward += reward
             # 更新一下当前的索引，其实就是+1操作
@@ -119,6 +127,8 @@ def train(game, net, target_model, optimizer, replay_buffer, device):
             if done:
                 break
 
+            index += 1
+
         reward_list.append(episode_reward)
 
         print(f"Episode: {episode}, reward: {episode_reward}, epsilon: {epsilon}, max_reward: {max_reward}, best_episode: {best_episode}")
@@ -126,7 +136,7 @@ def train(game, net, target_model, optimizer, replay_buffer, device):
         if episode_reward >= max_reward:
             max_reward = episode_reward
             best_episode = episode
-            Utils.save_model(net, episode, epsilon, episode_reward)
+            Utils.save_model(net, param_save_path, episode, epsilon, episode_reward)
             print("model saved!")
 
     # 绘制折线图
@@ -139,6 +149,12 @@ def train(game, net, target_model, optimizer, replay_buffer, device):
 
     # 显示图形
     plt.show()
+
+    """ 保存rewards数据，根据需求自行定义"""
+    # format_data = Utils.data_saving_format(reward_list)
+    # Utils.save_data(format_data, f"{data_save_path}train_rewards.txt")
+
+
 
 
 if __name__ == "__main__":
@@ -156,5 +172,5 @@ if __name__ == "__main__":
     # 设置我们的优化器。用于保存状态和更新参数
     optimizer = Adam(net.parameters(), lr=learning_rate)
     # 开始训练
-    train(game, net, target_net, optimizer, replay_buffer, "cpu")
+    train(game, net, target_net, optimizer, replay_buffer, device)
 
