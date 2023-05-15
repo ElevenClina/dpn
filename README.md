@@ -2,7 +2,7 @@
 
 
 <div style="display:flex">
-  <img src="./results/tankbattle_begin.jpg" alt="Image 1" width="400"/>
+  <img src="graph/tankbattle_begin.jpg" alt="Image 1" width="400"/>
 </div>
 
 
@@ -32,10 +32,13 @@ https://pan.baidu.com/s/1ZBDtCevIL4ix_SbtKn017A?pwd=cvi2
 ``` 
 ├── model
 │   ├── model relevant files
-├── output
+├── param
 │   ├── checkpoint.pth
-├── results
+├── graph
 │   ├── experiment pictures
+├── output
+│   ├── train
+│   ├── test
 ├── tankbattle
 │   ├── environment relevant files
 ├── venv
@@ -60,10 +63,10 @@ python plot.py
 ```
 ## 5. 项目效果
 ### 5.1 训练
-<img src="./results/rewards.png" alt="Image 1" width="400"/>
+<img src="graph/rewards.png" alt="Image 1" width="400"/>
 
 ### 5.2 测试
-<img src="./results/tankbattle_end.jpg" alt="Image 2" width="400"/>
+<img src="graph/tankbattle_end.jpg" alt="Image 2" width="400"/>
 
 
 
