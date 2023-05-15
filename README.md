@@ -5,6 +5,8 @@
   <img src="./results/tankbattle_begin.jpg" alt="Image 1" width="400"/>
 </div>
 
+
+
 ## 1. 项目简介
 本项目是基于坦克大战游戏的AI探究项目，主要使用了深度强化学习中的DQN算法，通过对游戏的状态进行编码，将游戏的状态作为DQN的输入，输出为游戏的动作，从而实现AI的自动控制。本项目主要包含以下内容：
 - 坦克大战游戏的实现
@@ -21,7 +23,11 @@
 - Pillow 9.5.0
 - Pyglet 1.5.0
 - Gym 0.21.0
-
+```
+项目所使用的软件运行环境可通过此链接下载：
+https://pan.baidu.com/s/1ZBDtCevIL4ix_SbtKn017A?pwd=cvi2 
+提取码：cvi2 
+```
 ## 3. 项目结构
 ``` 
 ├── model
